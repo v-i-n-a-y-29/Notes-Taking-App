@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind EJS Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom keyframes for fade and slide animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.95); opacity: 0;}
+      100% { transform: scale(1); opacity: 1;}
+    }
+    .fade-in {
+      animation: fadeIn 0.8s cubic-bezier(.4,0,.2,1) both;
+    }
+    .pop-in {
+      animation: popIn 0.5s cubic-bezier(.4,0,.2,1) both;
+    }
+    .glass {
+      background: rgba(39, 39, 42, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body>
+  <div class="main w-full min-h-screen bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 flex flex-col items-center fade-in">
+    <h1 class="text-5xl font-extrabold text-white tracking-tight mt-12 mb-8 drop-shadow-lg animate-bounce">Notes Taking App</h1>
+    <div class="form text-white w-full max-w-xl glass rounded-xl shadow-2xl p-8 mb-10 pop-in">
+      <form action="/create" method="post" class="space-y-4">
+        <input class="block w-full px-4 py-4 rounded-lg bg-zinc-800/80 border border-zinc-700 focus:ring-2 focus:ring-blue-500 transition-all duration-200 outline-none text-lg" type="text" placeholder="Title goes here" name="title" required>
+        <textarea class="resize-none w-full block px-4 py-4 rounded-lg bg-zinc-800/80 border border-zinc-700 focus:ring-2 focus:ring-blue-500 transition-all duration-200 outline-none text-lg" placeholder="Write your task details" name="details" rows="4" required></textarea>
+        <input type="submit" value="Create Task"
+        class="w-full mt-2 px-5 py-3 cursor-pointer hover:bg-blue-700 active:bg-blue-800 rounded-lg bg-blue-600 text-white font-semibold text-lg shadow-md transition-all duration-200 transform hover:scale-105">
+      </form>
+    </div>
+    <div class="tasks w-full max-w-6xl p-6 flex gap-6 flex-wrap justify-center fade-in">
+      <% if(files.length>0){ %>
+        <% files.forEach((val, idx)=>{ %>
+          <div class="task min-w-72 max-w-xs rounded-xl p-6 glass shadow-xl bg-zinc-800/80 pop-in" style="animation-delay:<%= idx*0.08 %>s">
+            <h1 class="text-white text-2xl font-bold tracking-tight mb-2 truncate"><%=val %></h1>
+            <div class="flex justify-between items-center pt-2">
+              <a href="/files/<%=val %>" class="text-blue-400 hover:underline hover:text-blue-300 transition-all duration-150">Read More...</a>
+              <a href="/edit/<%=val %>" class="text-red-400 hover:underline hover:text-red-300 transition-all duration-150">Edit</a>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+          <h1 class="text-zinc-500 text-2xl font-light mt-10 animate-pulse">No tasks yet.</h1>
+      <% } %>
+    </div>
+    <footer class="mt-auto mb-4 text-zinc-500 text-sm opacity-70">Made with <span class="text-blue-400">Tailwind</span> & <span class="text-yellow-400">EJS</span></footer>
+  </div>
+</body>
+</html>
