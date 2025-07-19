@@ -4,7 +4,7 @@ A simple yet functional Notes Taking App built using **Node.js**, **Express.js**
 
 ## 🔗 Live Demo
 
-> _(Optional: Add a link here if deployed on Render, Vercel, etc.)_
+https://notes-taking-app-0god.onrender.com/
 
 ## 🚀 Features
 
